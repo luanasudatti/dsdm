@@ -10,10 +10,8 @@ class Ponto {
 class Jogo {
   static const int tamanho = 16;
 
-  List<List<String>> tabuleiro = List.generate(
-    tamanho,
-    (_) => List.generate(tamanho, (_) => "|"),
-  );
+  List<List<String>> tabuleiro =
+      List.generate(tamanho, (_) => List.generate(tamanho, (_) => "|"));
 
   int placarTime1 = 0;
   int placarTime2 = 0;
@@ -73,12 +71,19 @@ class Jogo {
 
     print("\nTime 2 - Posicione seu navio");
     navio2 = lerCoordenada();
+
+    print("\nNavios posicionados!");
   }
 
   bool atacar(int time) {
     print("\nTurno do Time $time");
 
     Ponto ataque = lerCoordenada();
+
+    if (tabuleiro[ataque.linha][ataque.coluna] != "|") {
+      print("Você já atacou essa posição!");
+      return false;
+    }
 
     if (time == 1) {
       if (ataque.linha == navio2!.linha && ataque.coluna == navio2!.coluna) {
